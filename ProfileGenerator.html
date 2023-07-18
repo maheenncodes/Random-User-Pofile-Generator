@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js" ></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+
+$(document).ready(function() {
+    $("#generatebtn").click(function() {
+        $.ajax({
+            url: "https://randomuser.me/api/",
+            dataType: "json",
+            success: function(data) {
+                displayUserProfile(data.results[0]);
+            },
+            error: function() {
+                alert("Error while generating random user profile.");
+            }
+        });
+    });
+
+function displayUserProfile(user) {
+    var html = "<img src='" + user.picture.large + "'>" +
+    "<p><strong>Name:</strong> " + user.name.first + " " + user.name.last + "</p>" +
+    "<p><strong>Location:</strong> " + user.location.city + ", " + user.location.country+ "</p>" +
+    "<p><strong>Phone:</strong> " + user.phone + "</p>" +
+    "<p><strong>Email:</strong> " + user.email + "</p>";
+
+    $("#userProfile").html(html);
+}
+
+
+});
+
+  </script>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#userProfile {
+    max-width: 400px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+#userProfile img {
+    border-radius: 50%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+	<h1>Random User Profile Generator</h1>
+	<button id="generatebtn">Generate Random User</button>
+	<div id="userProfile"></div>
+	<script src="script.js"></script>
+</body>
+</html>
